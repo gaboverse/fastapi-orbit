@@ -1,0 +1,16 @@
+services:
+  api:
+    build:
+      context: ./services/api
+      dockerfile: ./Dockerfile
+    environment:
+      WDB_SOCKET_SERVER: wdb
+    ports:
+      - "28000:8000"
+    volumes:
+      - ./services/api:/api
+    command: uv run fastapi dev --host 0.0.0.0 src/main.py
+  wdb:
+    image: kozea/wdb
+    ports:
+      - "21984:1984"
